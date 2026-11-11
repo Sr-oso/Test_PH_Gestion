@@ -20,7 +20,7 @@ export default function Dashboard() {
   if (!data) return <p>Cargando...</p>;
 
   // Total de ingresos facturados del periodo (suma de los conceptos).
-  const totalIngresos = data.ingresos_por_concepto.reduce((acc, c) => acc + c.valor, 0);
+  const totalIngresos = data.ingresos_por_concepto.reduce((acc, c) => acc + Number(c.valor || 0), 0);
 
   return (
     <>
@@ -30,7 +30,7 @@ export default function Dashboard() {
           <div className="field">
             <label>Periodo</label>
             <select value={periodo} onChange={(e) => setPeriodo(e.target.value)}>
-              {["2026-06","2026-07","2026-08","2026-09","2026-10","2026-11"].map((p) => (
+              {["2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11"].map((p) => (
                 <option key={p} value={p}>{p}</option>
               ))}
             </select>
