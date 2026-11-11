@@ -17,6 +17,14 @@ export default function Facturacion() {
   const generarMasiva = async (e) => {
     e.preventDefault();
     setErr(""); setResultado(null);
+
+    // Valida formato estricto YYYY-MM (ej: 2026-10)
+    const regexPeriodo = /^\d{4}-(0[1-9]|1[0-2])$/;
+    if (!periodoMasiva || !regexPeriodo.test(periodoMasiva)) {
+      setErr("Error generando la facturación");
+      return;
+    }
+
     try {
       const r = await api("/api/facturacion/masiva", {
         method: "POST",
@@ -52,7 +60,7 @@ export default function Facturacion() {
         <div className="row" style={{ marginBottom: 12 }}>
           <div className="field"><label>Periodo</label>
             <select value={periodo} onChange={(e) => setPeriodo(e.target.value)}>
-              {["2026-07","2026-08","2026-09","2026-10"].map((p) => <option key={p}>{p}</option>)}
+              {["2026-07", "2026-08", "2026-09", "2026-10"].map((p) => <option key={p}>{p}</option>)}
             </select>
           </div>
         </div>
