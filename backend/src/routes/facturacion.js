@@ -37,8 +37,10 @@ router.post(
   async (req, res) => {
     const condominioId = condominioDeLaPeticion(req);
     const { periodo, concepto_id } = req.body || {};
-    if (!periodo || !concepto_id) {
-      return res.status(400).json({ error: "periodo y concepto_id son obligatorios" });
+
+    const regexPeriodo = /^\d{4}-(0[1-9]|1[0-2])$/;
+    if (!periodo || !concepto_id || !regexPeriodo.test(periodo)) {
+      return res.status(400).json({ error: "Error generando la facturación" });
     }
 
     const cpt = await query(

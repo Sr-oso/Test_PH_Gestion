@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { api, setSession } from "../api.js";
 
 export default function Login() {
-  const [email, setEmail] = useState("admin1@laspalmas.co");
-  const [password, setPassword] = useState("Examen2026*");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -41,10 +41,6 @@ export default function Login() {
         </div>
         {err && <div className="err">{err}</div>}
         <button type="submit" disabled={loading}>{loading ? "Ingresando..." : "Iniciar sesión"}</button>
-        <div className="hint">
-          Usuarios de prueba (clave <code>Examen2026*</code>):<br />
-          admin1@laspalmas.co · contador1@laspalmas.co · juan.perez@correo.co · admin2@miradordelrio.co
-        </div>
       </form>
     </div>
   );
